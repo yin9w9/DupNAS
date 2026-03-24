@@ -70,6 +70,23 @@ intermittent-inference-library contains the intermittent inference runtime libra
 
 ### ⚙️ Inference
 
+To deploy models with [TensorFlow Lite Micro](https://github.com/tensorflow/tflite-micro) on STM32, follow the steps below:
+
+1. Convert the ONNX models to TFLite with [onnx2tf](https://github.com/PINTO0309/onnx2tf). One convenient option is to use the official Docker image:
+   ```bash
+   sudo docker run --rm -it -v $(pwd):/workdir -w /workdir ghcr.io/pinto0309/onnx2tf:1.28.5
+   onnx2tf -i ONNX_MODEL -oiqt
+   ```
+   This produces fully integer-quantized TFLite models such as `xxx_full_integer_quant.tflite`.
+
+2. Copy the converted TFLite model (`xxx_full_integer_quant.tflite`) into `tflm-template/src/models`.
+
+3. Follow [tflm-template/README.md](tflm-template/README.md) to build the TensorFlow Lite Micro static library (`libtensorflow-microlite.a`).
+
+4. Add the generated static library to your STM32CubeIDE project settings. Then include `tflm-template/src/tflm_main.h` and call `tflm_main_xxx` to run inference for the target model.
+
+For more information, please refer to [tflm-template/README.md](tflm-template/README.md).
+
 ---
 
 
