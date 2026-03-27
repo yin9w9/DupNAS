@@ -110,15 +110,15 @@ For more information, please refer to [tflm-template/README.md](tflm-template/RE
 
 | Model | TS Mode | VM = 96 KB | VM = 128 KB | VM = 256 KB |
 |---|---|---:|---:|---:|
-| MobileNet   | DupNAS  | XX | XX | XX |
-|             | TinyTS  | XX | XX | XX |
-|             | PatchTS | XX | XX | XX |
-| ShuffleNet  | DupNAS  | XX | XX | XX |
-|             | TinyTS  | XX | XX | XX |
-|             | PatchTS | XX | XX | XX |
-| InceptionNet | DupNAS  | XX | XX | XX |
-|             | TinyTS  | XX | XX | XX |
-|             | PatchTS | XX | XX | XX |
+| MobileNet   | DupNAS  | 58.40% | 62.08% | 62.64% |
+|             | TinyTS  | 52.88% | 56.88% | 61.76% |
+|             | PatchTS | 51.36% | 56.48% | 62.64% |
+| ShuffleNet  | DupNAS  | 61.36% | 62.96% | 65.76% |
+|             | TinyTS  | 56.8% | 59.76% | 64.96% |
+|             | PatchTS | 54.24% | 58.72% | 60.48% |
+| InceptionNet | DupNAS  | 61.84% | 64.16% | 68.24% |
+|             | TinyTS  | 45.68% | 57.84% | 64.88% |
+|             | PatchTS | 54.00% | 58.64% | 67.36% |
 
 
 
