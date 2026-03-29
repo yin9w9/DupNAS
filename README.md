@@ -28,8 +28,8 @@ We evaluate DupNAS on three backbone network families—MobileNetV2, ShuffleNetV
 Below is a brief description of the main directories and files in this repository.
 
 - `/DupNAS/NASBase/duplication` implements the DupNAS module integrated into the NAS framework.
-- `/DupNAS/NASBase/ss_optimization` implements the search-space optimization component, adapted from TinyNAS .
-- `/DupNAS/NASBase/evo_search` implements the evolutionary search component, adapted from TinyNAS.
+- `/DupNAS/NASBase/ss_optimization` contains the search-space optimization component, adapted from TinyNAS .
+- `/DupNAS/NASBase/evo_search` contains the evolutionary search component, adapted from TinyNAS.
 - `/DupNAS/NASBase/model` defines the search space, supernet architecture, and subnet architecture.
 - `/DupNAS/settings` provides the settings used for evaluation under different datasets and baseline methods.
 - `/DupNAS/settings.py` defines the global NAS settings and provides utilities for loading and managing configuration files.
