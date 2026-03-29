@@ -30,15 +30,15 @@ DupNAS is implemented in PyTorch and developed on a server with an Intel Xeon E5
 
 Below is a brief description of the main directories and files in this repository.
 
-- `/DupNAS/NASBase/duplication` implements the multi-branch TS DupNAS module integrated into the NAS framework.
+- `/DupNAS/NASBase/duplication` provides the implementation of our multi-branch TS algorithm integrated into the NAS framework.
 - `/DupNAS/NASBase/ss_optimization` contains the search-space optimization component, adapted from TinyNAS .
 - `/DupNAS/NASBase/evo_search` contains the evolutionary search component, adapted from TinyNAS.
 - `/DupNAS/NASBase/model` defines the search space, supernet architecture, and subnet architecture.
 - `/DupNAS/settings` provides the settings used for evaluation under different datasets and baseline methods.
 - `/DupNAS/settings.py` defines the global NAS settings and provides utilities for loading and managing configuration files.
 - `/DupNAS/genonnx/DupNAS_SA.py` provides a standalone implementation of the DupNAS module.
-- `/Inference/Tensor-splitter/` implements ONNX model rewriting to execute the selected tensor-splitting configuration.
-- `/Inference/Tflm-engine/` implements the build process for TensorFlow Lite Micro libraries that run the models.
+- `/Inference/Model-converter/` provides the ONNX Tensor Splitter and converts split models into TFLite models.
+- `/Inference/Tflm-engine/` provides the build process for TensorFlow Lite Micro libraries that run the models.
 - `/assets/DupNAS_paper_data.xlsx` contains the data presented in the figures in the paper.
 
 ---
@@ -79,7 +79,7 @@ Below is a brief description of the main directories and files in this repositor
 5. Extract the solution from `best_solution,json` and use it to fill in `spec_model.txt`
 6. Generate the ONNX models for the selected solution using `/DupNAS/NASBase/spec_onnx_gen.py`. The outputs will be saved in `/DupNAS/genonnx/`.
 7. Go to `/DupNAS/genonnx/`, then run `python3.9 -m DupNAS_SA.py --onnx <onnx_name> --mode <mode> --vmsize <vmsize> --export_file` to generate the TS configuration. Alternatively, you can run `run_all_onnx.sh` to automatically generate TS configurations for all ONNX models in the directory.
-8. Run `gen_ts_cfg.py` to collect the `split-configuration JSON file` for Tensor Splitter
+8. Run `gen_ts_cfg.py` to collect the `split-configuration JSON file` for Model-converter
 
 
 ### ✂️ Model-converter
