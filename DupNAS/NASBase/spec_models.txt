@@ -1,8 +1,13 @@
 
+# foramtting
+# Extract from best_solution_info.json: supernet config=[width multiplier, input resolution], subnet_choice_per_blk
+# wm= <width multiplier>, ir= <input resolution>, name= <shuffle>, cpb=<subnet_choice_per_blk>
+
+
+
+
 
 # # shuffle
-
-
 # wm=0.5, ir=128, name=shuffle_vm96_dupnas, cpb=[[2, 5, 3], [1, 7, 2], [2, 3, 3]]
 # wm=0.5, ir=96, name=shuffle_vm96_tinyts, cpb=[[2, 5, 2], [1, 3, 3], [2, 7, 2]]
 # wm=0.5, ir=96, name=shuffle_vm96_patchts, cpb=[[2, 7, 2], [2, 3, 2], [1, 7, 3]]
