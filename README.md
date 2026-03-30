@@ -33,7 +33,7 @@ Below is a brief description of the main directories and files in this repositor
 - `/Inference/Model-converter/` provides the model converter, which applies the splitting configuration to a network solution to generate a split network that can be deployed on TFLite-Micro.  
 - `/Inference/Tflm-engine/` provides the build process for TFLite-Micro.
 - `/assets/DupNAS_paper_data.xlsx` contains the experimental results presented in the paper.
-- `/assets/models/` contains the models used for deployment and evaluation.
+- `/assets/models/` contains the models used for evaluation and deployment.
 - 
 ---
 ## 🧭 Getting Started
