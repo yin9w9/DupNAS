@@ -33,7 +33,8 @@ Below is a brief description of the main directories and files in this repositor
 - `/Inference/Model-converter/` provides the model converter, which applies the splitting configuration to a network solution to generate a split network that can be deployed on TFLite-Micro.  
 - `/Inference/Tflm-engine/` provides the build process for TFLite-Micro.
 - `/assets/DupNAS_paper_data.xlsx` contains the experimental results presented in the paper.
-
+- `/assets/models/` contains the models used for deployment and evaluation.
+- 
 ---
 ## 🧭 Getting Started
 
@@ -105,7 +106,20 @@ Below are the networks found by DupNAS, TinyTS, and PatchTS.
 For detailed evaluation results, please see [DupNAS_paper_data](/assets/)
 
 
-| Model | VM | DupNAS | TinyTS | PatchTS |  Architecture | 
+| Model | VM: | DupNAS | TinyTS | PatchTS |  
+|---|---:|---:|---:|---:|
+| MobileNetV2 | 96 KB | 58.40% | 52.88% | 51.36% | 
+|             | 128 KB | 62.08% | 56.88% | 56.48% | 
+|             | 256 KB | 62.64% | 61.76% | 62.64% | 
+| ShuffleNetV2 | 96 KB | 61.36% | 56.8% | 54.24% | 
+|             | 128 KB | 62.96% | 59.76% | 58.72% | 
+|             | 256 KB | 65.76% | 64.96% | 60.48% | 
+| InceptionV3 | 96 KB | 61.84% | 45.68% | 54.00% | 
+|             | 128 KB | 64.16% | 57.84% | 58.64% | 
+|             | 256 KB | 68.24% | 64.88% | 67.36% | 
+
+
+<!-- | Model | VM | DupNAS | TinyTS | PatchTS |  Architecture | 
 |---|---:|---:|---:|---:|---|
 | MobileNetV2 | 96 KB | 58.40% | 52.88% | 51.36% | [Ori.](/assets/models/onnx_original/mbv2-vm96) / [TS](/assets/models/onnx_withTS/mbv2-vm96) |
 |             | 128 KB | 62.08% | 56.88% | 56.48% | [Ori.](/assets/models/onnx_original/mbv2-vm128) / [TS](/assets/models/onnx_withTS/mbv2-vm128) |
@@ -116,22 +130,8 @@ For detailed evaluation results, please see [DupNAS_paper_data](/assets/)
 | InceptionV3 | 96 KB | 61.84% | 45.68% | 54.00% | [Ori.](/assets/models/onnx_original/incept-vm96) / [TS](/assets/models/onnx_withTS/incept-vm96) |
 |             | 128 KB | 64.16% | 57.84% | 58.64% | [Ori.](/assets/models/onnx_original/incept-vm128) / [TS](/assets/models/onnx_withTS/incept-vm128) |
 |             | 256 KB | 68.24% | 64.88% | 67.36% | [Ori.](/assets/models/onnx_original/incept-vm256) / [TS](/assets/models/onnx_withTS/incept-vm256) |
+ -->
 
-
-
-
-
-<!-- | Model | TS Mode | VM = 96 KB | VM = 128 KB | VM = 256 KB |
-|---|---|---:|---:|---:|
-| MobileNetV2   | DupNAS  | 58.40% | 62.08% | 62.64% |
-|             | TinyTS  | 52.88% | 56.88% | 61.76% |
-|             | PatchTS | 51.36% | 56.48% | 62.64% |
-| ShuffleNetV2  | DupNAS  | 61.36% | 62.96% | 65.76% |
-|             | TinyTS  | 56.8% | 59.76% | 64.96% |
-|             | PatchTS | 54.24% | 58.72% | 60.48% |
-| InceptionV3 | DupNAS  | 61.84% | 64.16% | 68.24% |
-|             | TinyTS  | 45.68% | 57.84% | 64.88% |
-|             | PatchTS | 54.00% | 58.64% | 67.36% |
 
 
  -->
