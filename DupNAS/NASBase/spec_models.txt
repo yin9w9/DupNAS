@@ -1,0 +1,11 @@
+
+# foramtting
+# Extract from best_solution_info.json: supernet config=[width multiplier, input resolution], subnet_choice_per_blk
+# wm= <width multiplier>, ir= <input resolution>, name= <shuffle>, cpb=<subnet_choice_per_blk>
+
+
+# For example
+
+# wm=0.75, ir=96, name=incept-im100-vm96-dupnas, cpb=[[2, 3, 2, 1], [1, 3, 2, 1], [2, 3, 2, 1]]
+
+

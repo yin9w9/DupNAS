@@ -70,7 +70,8 @@ Below is a brief description of the main directories and files in this repositor
   | `--suffix` | Experiment suffix for naming outputs | user-defined string |
   
 5. Extract the network solution from `best_solution,json` and use it to fill in `spec_model.txt`
-6. Generate the ONNX models for the selected solution using `/DupNAS/NASBase/spec_onnx_gen.py`. The outputs will be saved in `/DupNAS/genonnx/`.
+6. Generate the ONNX models for the selected solution using 
+  `python3.9 -m NASBase.spec_onnx_gen --arc <arc>`. The outputs will be saved in `/DupNAS/genonnx/`.
 7. Go to `/DupNAS/genonnx/`, then run `python3.9 -m DupNAS_SA.py --onnx <onnx_name> --mode <mode> --vmsize <vmsize> --export_file` to generate the TS configuration. Alternatively, you can run `run_all_onnx.sh` to automatically generate TS configurations for all ONNX models in the directory.
 8. Run `gen_ts_cfg.py` to collect the `split-configuration JSON file` for the model converter
 
@@ -105,7 +106,7 @@ For detailed evaluation results, please see [DupNAS_paper_data](/assets/)
 
 
 | Model | VM | DupNAS | TinyTS | PatchTS |  Architecture | 
-|---|---:|---:|---:|---:|---:|
+|---|---:|---:|---:|---:|---|
 | MobileNetV2 | 96 KB | 58.40% | 52.88% | 51.36% | [Ori.](/assets/models/onnx_original/mbv2-vm96) / [TS](/assets/models/onnx_withTS/mbv2-vm96) |
 |             | 128 KB | 62.08% | 56.88% | 56.48% | [Ori.](/assets/models/onnx_original/mbv2-vm128) / [TS](/assets/models/onnx_withTS/mbv2-vm128) |
 |             | 256 KB | 62.64% | 61.76% | 62.64% | [Ori.](/assets/models/onnx_original/mbv2-v256) / [TS](/assets/models/onnx_withTS/mbv2-v256) |
