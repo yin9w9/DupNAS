@@ -203,7 +203,7 @@ class Settings(object): ##default settintgs & discription
         'TRAIN_PRINT_FREQ' : 100,   # print frequency of training      
 
         #NEW  "shuffle", "incept", "mbv2"  #no use: "mobile",
-        'ARC': 'shuffle',
+        'ARC': 'mbv2',
         'MODE': 'dupnas', # "dupnas", "tinyts", "patchts", "nots"
         'GOAL': 'bal',  #bal, mem
         'VMSIZE': 128,
@@ -374,7 +374,7 @@ class Settings(object): ##default settintgs & discription
 
     # Base settings for IMAGE100
     image100_base = {
-        'NUM_BLOCKS': 3,
+        'NUM_BLOCKS': 4,
         'NUM_CLASSES': 100,
         'STEM_C_OUT': 16,
         'INPUT_CHANNELS': 3,

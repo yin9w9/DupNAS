@@ -1,26 +1,20 @@
 # 🚀 DupNAS: Splitting Bottlenecks: Memory-Aware Neural Architecture Search for Multi-Branch TinyML
 
-> **Official artifact repository for DupNAS**  
-> Memory-constrained neural architecture search, tensor splitting, and deployment for TinyML on MCU-class devices.
-
-
-<!-- [![Paper](#)](#) [![License](#)](#) [![Python](#)](#) [![Platform](#)](#) -->
-
 ---
 ## 📝 Overview
 
-DupNAS is a framework for improving neural network accuracy under tight memory constraints on resource-constrained devices. It combines neural architecture search with multi-branch tensor splitting to reduce peak memory usage, enabling larger or more accurate networks to be deployed on small devices.
+This project develops DupNAS, a framework that integrates neural architecture search and multi-branch tensor splitting to find high-accuracy networks that are deployable on severely memory-constrained tiny MCU-class devices. To enable this integration, DupNAS shrinks the vast splitting configuration space of multi-branch networks into a smaller set of memory-optimized configurations and explores them in a lightweight manner to resolve memory bottlenecks.
 
-DupNAS is evaluated on three vision-based TinyML backbone families, MobileNetV2, ShuffleNetV2, and InceptionV3, under different memory budgets. All networks are trained on the ImageNet-100 dataset. We compare DupNAS with TinyTS and PatchTS, and deploy the searched networks on an STM32 microcontroller.
 
-DupNAS is implemented in PyTorch and developed on a server with an Intel Xeon E5-2678 CPU (2.5 GHz), 128 GB RAM, and four NVIDIA GTX 1080 Ti GPUs. The split-network solutions are INT8-quantized and deployed on an STM32F746 MCU with an ARM Cortex-M7 CPU 216 MHz), 320 KB VM, and 1 MB NVM, running the TFLite Micro inference engine. 
+DupNAS is implemented in PyTorch on top of the popular [TinyNAS](https://github.com/mit-han-lab/mcunet) framework for MCUs, with extensions to support multi-branch networks and integration with our splitting strategy. The resulting network solutions are deployed on an [STM32F746](https://www.st.com/en/evaluation-tools/32f746gdiscovery.html) microcontroller (ARM Cortex-M7 CPU, 216 MHz, 320 KB VM, and 1 MB NVM) running the TensorFlow Lite Micro (TFLite-Micro) inference engine. We evaluate DupNAS on three vision-based TinyML network families, namely MobileNetV2, ShuffleNetV2, and InceptionV3, under different memory constraints. All networks are trained on the ImageNet-100 dataset. DupNAS is compared against two existing splitting strategies, TinyTS and PatchTS.
+
 
 
 <p align="center">
   <img src="assets/figures/NAS_with_TS.svg" alt="NAS_with_TS" width="500">
 </p>
 <p align="center">
-  <em>Overview of the DupNAS</em>
+  <em>Overview of the DupNAS framework</em>
 </p>
 <!-- This repository contains the full artifact for reproducing the NAS, model splitting, fine-tuning, ONNX export, and MCU deployment workflow used in DupNAS. -->
 
@@ -30,38 +24,37 @@ DupNAS is implemented in PyTorch and developed on a server with an Intel Xeon E5
 
 Below is a brief description of the main directories and files in this repository.
 
-- `/DupNAS/NASBase/duplication` provides the implementation of our multi-branch TS algorithm integrated into the NAS framework.
-- `/DupNAS/NASBase/ss_optimization` contains the search-space optimization component, adapted from TinyNAS .
-- `/DupNAS/NASBase/evo_search` contains the evolutionary search component, adapted from TinyNAS.
-- `/DupNAS/NASBase/model` defines the search space, supernet architecture, and subnet architecture.
-- `/DupNAS/settings` provides the settings used for evaluation under different datasets and baseline methods.
-- `/DupNAS/settings.py` defines the global NAS settings and provides utilities for loading and managing configuration files.
-- `/DupNAS/genonnx/DupNAS_SA.py` provides a standalone implementation of the DupNAS module.
-- `/Inference/Model-converter/` provides the ONNX Tensor Splitter and converts split models into TFLite models.
-- `/Inference/Tflm-engine/` provides the build process for TensorFlow Lite Micro libraries that run the models.
-- `/assets/DupNAS_paper_data.xlsx` contains the data presented in the figures in the paper.
+- `/DupNAS/NASBase/duplication` implements the DupNAS splitting configuration exploration algorithm, which is invoked during the NAS process.
+- `/DupNAS/NASBase/ss_optimization` contains the NAS architecture space optimization component, adapted from TinyNAS.
+- `/DupNAS/NASBase/evo_search` contains the NAS evolutionary search component, adapted from TinyNAS.
+- `/DupNAS/NASBase/model` defines the architecture search space, including supernet and subnet architecture definitions.
+- `/DupNAS/settings` provides the evaluation settings for different datasets and baselines.
+- `/DupNAS/settings.py` defines the global NAS settings.
+- `/Inference/Model-converter/` provides the model converter, which applies the splitting configuration to a network solution to generate a split network that can be deployed on TFLite-Micro.  
+- `/Inference/Tflm-engine/` provides the build process for TFLite-Micro.
+- `/assets/DupNAS_paper_data.xlsx` contains the experimental results presented in the paper.
 
 ---
 ## 🧭 Getting Started
 
 
-### 💡 Requirement
+### 💡 Prerequisites
 
-- `Python 3.9` is recommended.
+- `Python 3.9`.
 - Install the required Python packages listed in `requirements.txt` with:
   `python3.9 -m pip install -r requirements.txt`
-- [Anaconda](https://www.anaconda.com/docs/getting-started/anaconda/install/overview) is optional, but recommended for managing Python environments.
-- The main dataset used in this project is [ImageNet-100](https://www.kaggle.com/datasets/ambityga/imagenet100/data). You can prepare and load it using: `/DupNAS/NASBase/load_image100.py`.
-- [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html)
-- [STM32F746NG MCU](https://www.st.com/en/evaluation-tools/32f746gdiscovery.html)
-- [TensorFlow Lite Micro](https://github.com/tensorflow/tflite-micro)
+- [Anaconda](https://www.anaconda.com/docs/getting-started/anaconda/install/overview) (recommended for managing Python environments).
+- [ImageNet-100](https://www.kaggle.com/datasets/ambityga/imagenet100/data) dataset. Load the dataset using: `/DupNAS/NASBase/load_image100.py`.
+- [STM32F746NG MCU](https://www.st.com/en/evaluation-tools/32f746gdiscovery.html) deployment device.
+- [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html) development tools for the STM32.
+- [TensorFlow Lite Micro](https://github.com/tensorflow/tflite-micro) inference engine.
 
-### 🔧Setup and Build for DupNAS
+### 🔧 Setup and running DupNAS
 
-1. Download or clone this repository
+1. Download or clone this repository.
 2. Create and activate a Python environment, then install the required dependencies.
 3. Prepare the ImageNet-100 dataset and update the dataset paths.
-4. Run the NAS pipeline:
+4. Invoke DupNAS as follows:
   ```python
   python3.9 -m NASBase.run_nas --stages <stage> --arc <arc> --dataset IMAGE100 --mode <mode> --vmsize <vmsize> --suffix <suffix> --no-rlogger
   ```
@@ -70,33 +63,33 @@ Below is a brief description of the main directories and files in this repositor
   | Option | Description | Candidate Values |
   |---|---|---|
   | `--stages` | Number of NAS stages: ssopt, training, evosearch, fine-tuning | `1`, `2`, `3`, `4` |
-  | `--arc` | Backbone architecture | `mbv2`, `shuffle`, `incept` |
+  | `--arc` | network architecture family | `mbv2`, `shuffle`, `incept` |
   | `--dataset` | Dataset used for search | `IMAGE100` |
-  | `--mode` | TS optimization  | `dupnas`, `tinyts`, `patchts`, `nots` | 
+  | `--mode` | splitting strategy  | `dupnas`, `tinyts`, `patchts`, `nots` | 
   | `--vmsize` | VM constraint in KB | `96`, `128`, `256` |
-  | `--suffix` | Experiment suffix for output naming | user-defined string |
+  | `--suffix` | Experiment suffix for naming outputs | user-defined string |
   
-5. Extract the solution from `best_solution,json` and use it to fill in `spec_model.txt`
+5. Extract the network solution from `best_solution,json` and use it to fill in `spec_model.txt`
 6. Generate the ONNX models for the selected solution using `/DupNAS/NASBase/spec_onnx_gen.py`. The outputs will be saved in `/DupNAS/genonnx/`.
 7. Go to `/DupNAS/genonnx/`, then run `python3.9 -m DupNAS_SA.py --onnx <onnx_name> --mode <mode> --vmsize <vmsize> --export_file` to generate the TS configuration. Alternatively, you can run `run_all_onnx.sh` to automatically generate TS configurations for all ONNX models in the directory.
-8. Run `gen_ts_cfg.py` to collect the `split-configuration JSON file` for Model-converter
+8. Run `gen_ts_cfg.py` to collect the `split-configuration JSON file` for the model converter
 
 
-### ✂️ Model-converter
+### ✂️ Setup and running the model converter
 
 1. Copy the ONNX model and its corresponding split-configuration JSON file from `/DupNAS/genonnx/` to `/Inference/Model-converter/`
-2. Split the model by [ONNX Tensor Splitter](Inference/Model-converter/README.md).
-3. Convert the ONNX models to TFLite with [onnx2tf](https://github.com/PINTO0309/onnx2tf). One convenient option is to use the official Docker image:
+2. Split the model by following [ONNX Tensor Splitter](Inference/Model-converter/README.md).
+3. Convert the ONNX models to TFLite with [onnx2tf](https://github.com/PINTO0309/onnx2tf). We recomment using the official Docker image:
    ```bash
    run --rm -it -v $(pwd):/workdir -w /workdir ghcr.io/pinto0309/onnx2tf:1.28.5  
    onnx2tf -i ONNX_MODEL -oiqt
    ```
-   This produces fully integer-quantized TFLite models such as `xxx_full_integer_quant.tflite`.
+   This produces the integer-quantized TFLite-Micro models (e.g., `xxx_full_integer_quant.tflite`).
 
-### ⚙️ Tflm-engine
+### ⚙️ Setup and building TFLite-Micro
 
-1. Copy the converted TFLite model (`xxx_full_integer_quant.tflite`) into `Tflm-engine/src/models`.
-2. Follow [Tflm-engine/README.md](Inference/Tflm-engine/README.md) to build the TensorFlow Lite Micro static library (`libtensorflow-microlite.a`).
+1. Copy the converted TFLite-Micro model (`xxx_full_integer_quant.tflite`) into `Tflm-engine/src/models`.
+2. Follow [Tflm-engine/README.md](Inference/Tflm-engine/README.md) to build the TFLite-Micro static library (`libtensorflow-microlite.a`).
 3. Add the generated static library to your STM32CubeIDE project settings. Then include `Tflm-engine/src/tflm_main.h` and call `tflm_main_xxx` to run inference for the target model.
 
 For more information, please refer to [Tflm-engine/README.md](Inference/Tflm-engine/README.md).
@@ -105,11 +98,11 @@ For more information, please refer to [Tflm-engine/README.md](Inference/Tflm-eng
 <!-- sudo docker run --rm -it -v $(pwd):/workdir -w /workdir ghcr.io/pinto0309/onnx2tf:1.28.5   -->
 
 ---
-## 🧩 Evaluate
+## 🧩 Evaluation
 
-For more detailed data, please see [DupNAS_paper_data](/assets/)
+Below are the networks found by DupNAS, TinyTS, and PatchTS.
+For detailed evaluation results, please see [DupNAS_paper_data](/assets/)
 
-### Accuracy
 
 | Model | TS Mode | VM = 96 KB | VM = 128 KB | VM = 256 KB |
 |---|---|---:|---:|---:|

@@ -3,3 +3,7 @@
 
 DupNAS/genonnx/inferred_onnx/
 DupNAS/genonnx/data/
+DupNAS/__pycache__/
+README-old.md
+__pycache__/
+*.pyc

@@ -44,7 +44,7 @@ first_block_hard_coded=Settings.NAS_SETTINGS_PER_DATASET[dataset]['FIRST_BLOCK_H
 
 from collections import defaultdict
 
-SPEC_FILE = os.path.join(os.path.dirname(__file__), "spec_model_"+Settings.NAS_SETTINGS_GENERAL['ARC']+".txt")
+SPEC_FILE = os.path.join(os.path.dirname(__file__), "spec_models_"+Settings.NAS_SETTINGS_GENERAL['ARC']+".txt")
 
 def parse_spec_file(path: str):
     """
@@ -128,18 +128,19 @@ else:
 
         net_input = get_dummy_net_input_tensor(Settings, input_resolution)
         onnx_path = Settings.NAS_EVOSEARCH_SETTINGS['GEN_ONNX_FILE_PATH']
+        ckpt_path = Settings.NAS_SETTINGS_GENERAL['CHECKPOINT_DIR']
         os.makedirs(onnx_path, exist_ok=True)
 
         for idx, (name, cpb) in enumerate(cpb_tuples):
             try:
-                ckptname = f"{name}_supernet_{Settings.NAS_SETTINGS_GENERAL['ARC']}_best-fine-tune.pth"
+                ckptname = f"{name}_supernet_{Settings.NAS_SETTINGS_GENERAL['ARC']}_best-fine-tuned.pth"
                 print(f"[INFO] Loading subnet-specific supernet: {ckptname}")
 
                 supernet = get_supernet(
                     global_settings=Settings,
                     dataset=dataset,
                     load_state=True,
-                    supernet_train_chkpnt_fname=ckptname,
+                    supernet_train_chkpnt_fname=ckpt_path+ckptname,
                     width_multiplier=width_multiplier
                 )
 

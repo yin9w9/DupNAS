@@ -68,8 +68,8 @@ class PlatPerf:
         # elif self.PLAT_SETTINGS['MCU_TYPE'] == "MSP432":
         #     plat_cost_profile = PlatformCostModel.PLAT_MSP432_EXTNVM
         
-        else:
-            sys.exit("NASBase::PlatPerf: ERROR - unsupported platform cost model")
+        # else:
+        #     sys.exit("NASBase::PlatPerf: ERROR - unsupported platform cost model")
         
         return plat_cost_profile
 
