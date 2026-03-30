@@ -7,3 +7,4 @@ DupNAS/__pycache__/
 README-old.md
 __pycache__/
 *.pyc
+*.bat
