@@ -81,7 +81,7 @@ Below is a brief description of the main directories and files in this repositor
 
 1. Copy the ONNX model and its corresponding split-configuration JSON file from `/DupNAS/genonnx/` to `/Inference/Model-converter/`
 2. Split the model by following [ONNX Tensor Splitter](Inference/Model-converter/README.md).
-3. Convert the ONNX models to TFLite with [onnx2tf](https://github.com/PINTO0309/onnx2tf). We recomment using the official Docker image:
+3. Convert the ONNX models to TFLite with [onnx2tf](https://github.com/PINTO0309/onnx2tf). We recommend using the official Docker image:
    ```bash
    run --rm -it -v $(pwd):/workdir -w /workdir ghcr.io/pinto0309/onnx2tf:1.28.5  
    onnx2tf -i ONNX_MODEL -oiqt
@@ -102,9 +102,22 @@ For more information, please refer to [Tflm-engine/README.md](Inference/Tflm-eng
 ---
 ## 🧩 Evaluation
 
+### Search Space Configuration
+
+| Level | Option | MobileNet-V2 | ShuffleNet-V2 | Inception-V3 |
+|---|---|---|---|---|
+| Backbone | Branches | 1 | 2 | 4 |
+| Backbone | Blocks | 4 | 3 | 3 |
+| Supernet | Input resolution | 32, 64, 96, 128 | 32, 64, 96, 128 | 32, 64, 96, 128 |
+| Supernet | Width multiplier | 0.25, 0.5, 0.75, 1.0 | 0.2, 0.5, 0.8 | 0.25, 0.5, 0.75, 1.0 |
+| Block | Kernel size | 3, 5 | 1, 3, 5, 7 | 3, 5, 7 |
+| Block | Expansion / stride | expansion: 3, 4, 6 | stride: 1, 2 | stride: 1, 2 |
+| Block | Layers | 1, 2, 3 | 1, 2, 3 | 1, 2, 3 |
+
+
+### Accuracy
 Below are the networks found by DupNAS, TinyTS, and PatchTS.
 For detailed evaluation results, please see [DupNAS_paper_data](/assets/)
-
 
 | Model | VM: | DupNAS | TinyTS | PatchTS |  
 |---|---:|---:|---:|---:|
