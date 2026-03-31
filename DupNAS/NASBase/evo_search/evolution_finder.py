@@ -211,28 +211,23 @@ def safe_remove(file):
 class EvolutionFinder:
     valid_constraint_range = {
         'FLOPS': [150, 600],
-        'MSP430': [10, 1000000000],
+        'HW': [10, 1000000000],
     }
 
-    def __init__(self, global_settings, dataset, supernet, constraint_type, efficiency_constraint,
+    def __init__(self, global_settings, dataset, supernet, efficiency_constraint,
                  efficiency_predictor, accuracy_predictor, logfname, **kwargs):
     
         self.global_settings = global_settings
         self.dataset = dataset
-        self.constraint_type = constraint_type
         self.exp_suffix = kwargs.get('exp_suffix', None) or self.global_settings.GLOBAL_SETTINGS['EXP_SUFFIX']
         self.logfname = logfname
         self.run_id = kwargs.get('run_id', None) or 0
   
         self.debug_enabled = self.global_settings.NAS_EVOSEARCH_SETTINGS['DEBUG_ENABLED']   # allows to disable some verbose prints
-  
-        if not constraint_type in self.valid_constraint_range.keys():
-            #self.invite_reset_constraint_type()
-            sys.exit("EvolutionFinder::Error: Invalid constraint type!")
    
         self.efficiency_constraint = efficiency_constraint
-        if not (efficiency_constraint <= self.valid_constraint_range[constraint_type][1] and
-                efficiency_constraint >= self.valid_constraint_range[constraint_type][0]):
+        if not (efficiency_constraint <= self.valid_constraint_range['HW'][1] and
+                efficiency_constraint >= self.valid_constraint_range['HW'][0]):
             #self.invite_reset_constraint()
             sys.exit("EvolutionFinder::Error: Invalid constraint_value!")
 
@@ -278,7 +273,7 @@ class EvolutionFinder:
     def check_constraints(self, sample):
         input_ch = self.global_settings.NAS_SETTINGS_PER_DATASET[self.dataset]['INPUT_CHANNELS']
 
-        if self.global_settings.NAS_EVOSEARCH_SETTINGS['EVOSEARCH_BYPASS_EFFICIENCY']:
+        if not self.global_settings.NAS_EVOSEARCH_SETTINGS['EVOSEARCH_BYPASS_EFFICIENCY']:
             
             # -- Results can be cached in a lookup table --
             cached_lat = self.evo_memory.query_tbl(sample, EvoMemTypes.LAT)
@@ -1045,7 +1040,7 @@ class EvolutionFinder:
             
         
         # After the population is seeded, proceed with evolving the population.
-        for iter in tqdm(range(max_time_budget), desc='Searching with %s constraint (%s)' % (self.constraint_type, self.efficiency_constraint)):
+        for iter in tqdm(range(max_time_budget), desc='Searching with constraint (%s)' % (self.efficiency_constraint)):
             
             population = sorted(population, key=self.get_score, reverse=True)   # sort by accuracy desc order
 
