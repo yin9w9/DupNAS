@@ -1,0 +1,12 @@
+Software requirements to compile the simulator can be found in requirements.txt 
+
+
+Prerequisites for compiling the DupNAS middleware for deployment:
+    STM32Cube AI Studio 1.2.0 (https://www.st.com/en/development-tools/stedgeai-cubeai.html)
+    STM32CubeMX 6.17.0 (https://www.st.com/en/development-tools/stm32cubemx.html)
+    STM32CubeIDE 2.1.1 (https://www.st.com/en/development-tools/stm32cubeide.html)
+
+Hardware requirements for deployment testing:
+    STM32F746G-DISCO (https://www.st.com/en/evaluation-tools/32f746gdiscovery.html) 
+    STM32H747I-DISCO (https://www.st.com/en/evaluation-tools/stm32h747i-disco.html)
+
