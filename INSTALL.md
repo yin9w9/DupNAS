@@ -134,6 +134,9 @@ The following STM32 tools must be installed on an Ubuntu 24.04 LTS host:
 * STM32CubeProgrammer
 * GNU Arm Embedded Toolchain
 
+
+### 2.2 Identify the STM32 Devices
+
 The STM32 tools are assumed to be installed under:
 
 ```text
@@ -142,14 +145,6 @@ The STM32 tools are assumed to be installed under:
 ```
 
 Update the Docker mount paths and deployment scripts when different installation directories are used.
-
-### 2.2 Identify the STM32 Devices
-
-List connected STM32 boards:
-
-```bash
-STM32_Programmer_CLI -l
-```
 
 Identify the UART devices:
 
@@ -204,11 +199,11 @@ SERIAL_NUMBER
 TTY_DEVICE
 ```
 
-* `PATH`: GNU Arm toolchain directory.
-* `PROGRAMMER`: path to `STM32_Programmer_CLI`.
+* `PATH`: Add the GNU Arm toolchain directory.
+* `PROGRAMMER`: path to STM32CubeProgrammer.
 * `STEDGEAI`: path to STM32Cube AI Studio. Required only for STM32Cube.AI.
-* `SERIAL_NUMBER`: serial number reported by `STM32_Programmer_CLI -l`.
-* `TTY_DEVICE`: UART device, such as `/dev/ttyACM0`.
+* `SERIAL_NUMBER`: serial number of the target STM32 board reported by `STM32_Programmer_CLI -l`.
+* `TTY_DEVICE`: path to the UART serial port for the target STM32 board.
 
 ---
 
